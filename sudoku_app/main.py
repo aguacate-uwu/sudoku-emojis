@@ -1,5 +1,5 @@
 import tkinter as tk
-from emoji_selector import EmojiSelector
+from ui.emoji_selector import EmojiSelector
 
 def main():
     root = tk.Tk()
