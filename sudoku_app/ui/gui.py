@@ -1,5 +1,6 @@
 import tkinter as tk
 from ui.emoji_selector import EmojiSelector
+from ui.theme import BACKGROUND_COLOR, PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR
 from core.board import SudokuBoard
 from core import solver
 from core import generator
@@ -15,7 +16,7 @@ class SudokuGUI(tk.Frame):
         self.active_emoji = None
 
         self.pack(fill="both", expand=True)
-        self.configure(padx=20, pady=20)
+        self.configure(padx=20, pady=20, bg=BACKGROUND_COLOR)
 
         self.default_active_bg = tk.Button(self).cget("activebackground")
 
@@ -23,12 +24,12 @@ class SudokuGUI(tk.Frame):
 
     def create_widgets(self):
         self.selector = EmojiSelector(self, self.emojis, max_selection=self.max_selection, on_confirm=self.on_emojis_confirmed)
-        self.selector.pack()
+        self.selector.pack(expand=True)
 
-        self.active_frame = tk.Frame(self)
-        self.board_frame = tk.Frame(self)
+        self.active_frame = tk.Frame(self, bg=BACKGROUND_COLOR)
+        self.board_frame = tk.Frame(self, bg=BACKGROUND_COLOR)
 
-        self.result_label = tk.Label(self, text="", font=("Arial", 14), fg="blue")
+        self.result_label = tk.Label(self, text="", font=("Arial", 14), fg="blue", bg=BACKGROUND_COLOR)
         self.comprobar_button = tk.Button(self, text="Comprobar", command=self.comprobar_tablero)
 
         self.active_buttons = []
@@ -42,7 +43,7 @@ class SudokuGUI(tk.Frame):
 
         # Crear botón para generar Sudoku
         self.boton_generar = tk.Button(self, text="Generar Sudoku", font=("Arial", 14), command=self.generar_sudoku)  # NUEVO
-        self.boton_generar.pack(pady=10)
+        self.boton_generar.pack(pady=10, expand=True, anchor="center")
 
     def generar_sudoku(self):
         tablero, solucion = generator.generar_sudoku(self.selected_emojis, dificultad="media")
